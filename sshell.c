@@ -24,22 +24,19 @@ int main(int argc, char **argv)
 		while (1)
 		{
 			// enter "infinite" interactive loop
-			
+			i = 0;
 			printf("($) ");
 
 			// get user commands
 
 			input = getline(&buffer, &bufsize, stdin);
 
-			// fork process
-			printf("passed getline %d\n", input);
 
-			//childcheck = fork();
+			//printf("passed getline %d\n", input);
 
 			// double check how to hanadle \n
 
 			tok = strtok(buffer, " \n");
-			printf("pulled the first token %s\n", tok);
 			if (tok == NULL)
 			{
 				printf("failed to read command");
@@ -49,23 +46,29 @@ int main(int argc, char **argv)
 
 			// tokenize input and store it in an array
 
-			while (tok != NULL)
+			while (tok != NULL && i < 32)
 			{
-				printf("%s\n", tok);
 				tok = strtok(NULL, " \n");
-				printf("%s\n", split[i]);
 				split[i++] = tok;
 
 			}
+
+			split[i - 1] = NULL;
+
 
 			// check if process is parent or child
 			childcheck = fork();
 
 			if (childcheck == 0)
+			{
 				// executes program called by user
-			       	execve(split[0], split, NULL);
+
+				execve(split[0], split, NULL);
+			}
 
 			wait(&status);
+			free(buffer);
+			buffer = NULL;
 		}
 	}
 	return (0);
