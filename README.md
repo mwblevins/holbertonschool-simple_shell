@@ -33,6 +33,6 @@ and
 Will display the contents of "file" to stdout. 
 
 ## Authors and Contributors
-This project exists because of the following contributors:<br />
-<a href="https://github.com/Taypo87"></a> <a href="https://github.com/mwblevins"></a>
+Taylor Poczynek
+Michael Blevins
 
