@@ -1,5 +1,4 @@
 #include "sshell.h"
-
 /**
  * main - Shell, interactive or non interactive
  * @argc: argument count
@@ -12,7 +11,7 @@ int main(int argc, char **argv)
 	size_t bufsize = 32;
 	int i = 0, status;
 	pid_t childcheck;
-	char *split[32], *tok, *buffer = NULL;
+	char *tok, *buffer = NULL;
 
 	if (argc == 1 && argv != NULL)
 	{
