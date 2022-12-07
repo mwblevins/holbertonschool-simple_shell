@@ -8,19 +8,21 @@
 char **user_console(void)
 {
 	size_t bufsize = 32;
-	int i = 0, input;
+	int i = 0, input, status;
 	char *tok, *buffer = NULL;
+	pid_t childcheck;
 
 	while (1)
 	{
-		if (isatty(0))
+		i = 0;
+		if (isatty(STDIN_FILENO))
 			printf("($) ");
 		input = getline(&buffer, &bufsize, stdin);
 		tok = strtok(buffer, " \n");
 		split[i++] = tok;
 		if (input == EOF)
 		{
-			if (isatty(0))
+			if (isatty(STDIN_FILENO))
 				printf("\n");
 			free(buffer);
 			return (NULL);
@@ -30,7 +32,15 @@ char **user_console(void)
 			tok = strtok(NULL, " \n");
 			split[i++] = tok;
 		}
-		split[i - 1] = NULL;
+		split[i-1] = NULL;
+		childcheck = fork();
+                if (childcheck == 0)
+                {
+                        execve(split[0], split, NULL);
+                }
+                wait(&status);
+		free(buffer);
+		buffer = NULL;
 	}
 	return (split);
 }
