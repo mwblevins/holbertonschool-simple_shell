@@ -32,13 +32,13 @@ char **user_console(void)
 			tok = strtok(NULL, " \n");
 			split[i++] = tok;
 		}
-		split[i-1] = NULL;
+		split[i - 1] = NULL;
 		childcheck = fork();
-                if (childcheck == 0)
-                {
-                        execve(split[0], split, NULL);
-                }
-                wait(&status);
+		if (childcheck == 0)
+		{
+			execve(split[0], split, NULL);
+		}
+		wait(&status);
 		free(buffer);
 		buffer = NULL;
 	}
