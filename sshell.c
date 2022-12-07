@@ -8,10 +8,8 @@
 
 int main(int argc, char **argv)
 {
-	int status;
-	pid_t childcheck;
 
-	if (argc == 1)
+	if (argc == 1 && argv)
 	{
 		user_console();
 	}
