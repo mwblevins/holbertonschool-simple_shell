@@ -18,7 +18,7 @@ char **user_console(void)
 		if (buffer == NULL)
 			printf("($) ");
 		input = getline(&buffer, &bufsize, stdin);
-		if (EOF)
+		if (input == EOF)
 		{
 			if (isatty(STDIN_FILENO) != 0)
 			{
