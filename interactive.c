@@ -21,11 +21,9 @@ char **user_console(void)
 		if (input == EOF)
 		{
 			if (isatty(STDIN_FILENO) != 0)
-			{
 				printf("\n");
-				free(buffer);
-				exit(0);
-			}
+			free(buffer);
+			exit(0);
 		}
 		tok = strtok(buffer, " \n");
 		split[i++] = tok;
@@ -40,9 +38,12 @@ char **user_console(void)
 		{
 			execve(split[0], split, NULL);
 			printf("./shell: No such file or directory\n");
+			free(tok);
+			free(buffer);
 			exit(0);
 		}
 		wait(&status);
+		free(tok);
 		free(buffer);
 		buffer = NULL;
 	}
