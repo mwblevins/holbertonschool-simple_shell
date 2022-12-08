@@ -10,23 +10,25 @@ char **user_console(void)
 	size_t bufsize = 32;
 	int i = 0, input, status;
 	char *tok, *buffer = NULL;
-	pid_t childcheck;
+	pid_t childcheck = 1;
 
 	while (1)
 	{
 		i = 0;
-		if (isatty(STDIN_FILENO))
+		if (buffer == NULL)
 			printf("($) ");
 		input = getline(&buffer, &bufsize, stdin);
+		if (EOF)
+		{
+			if (isatty(STDIN_FILENO) != 0)
+			{
+				printf("\n");
+				free(buffer);
+				exit(0);
+			}
+		}
 		tok = strtok(buffer, " \n");
 		split[i++] = tok;
-		if (input == EOF)
-		{
-			if (isatty(STDIN_FILENO))
-				printf("\n");
-			free(buffer);
-			return (NULL);
-		}
 		while (tok != NULL && i < 32)
 		{
 			tok = strtok(NULL, " \n");
@@ -37,6 +39,7 @@ char **user_console(void)
 		if (childcheck == 0)
 		{
 			execve(split[0], split, NULL);
+			exit(0);
 		}
 		wait(&status);
 		free(buffer);
