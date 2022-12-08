@@ -15,7 +15,7 @@ char **user_console(void)
 	while (1)
 	{
 		i = 0;
-		if (buffer == NULL)
+		if (isatty(STDIN_FILENO))
 			printf("($) ");
 		input = getline(&buffer, &bufsize, stdin);
 		if (input == EOF)
@@ -39,6 +39,7 @@ char **user_console(void)
 		if (childcheck == 0)
 		{
 			execve(split[0], split, NULL);
+			printf("./shell: No such file or directory\n");
 			exit(0);
 		}
 		wait(&status);
