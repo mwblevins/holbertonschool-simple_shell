@@ -28,6 +28,11 @@ char **user_console(void)
 		tok = strtok(buffer, " \n");
 		if (tok == NULL)
 			continue;
+		if (strcmp(tok, "exit") == 0)
+		{
+			free(buffer);
+			exit(0);
+		}
 		split[i++] = tok;
 		while (tok != NULL && i < 32)
 		{
