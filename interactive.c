@@ -8,8 +8,8 @@
 char **user_console(void)
 {
 	size_t bufsize = 32;
-	int i = 0, input, status;
-	char *tok, *buffer = NULL;
+	int i = 0, input = 0, status;
+	char *tok = NULL, *buffer = NULL;
 	pid_t childcheck = 1;
 
 	while (1)
@@ -18,8 +18,6 @@ char **user_console(void)
 		if (isatty(STDIN_FILENO))
 			printf("($) ");
 		input = getline(&buffer, &bufsize, stdin);
-		if (input != 0)
-			continue;
 		if (input == EOF)
 		{
 			if (isatty(STDIN_FILENO) != 0)
@@ -28,6 +26,8 @@ char **user_console(void)
 			exit(0);
 		}
 		tok = strtok(buffer, " \n");
+		if (tok == NULL)
+			continue;
 		split[i++] = tok;
 		while (tok != NULL && i < 32)
 		{
