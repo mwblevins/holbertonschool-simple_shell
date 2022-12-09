@@ -18,6 +18,8 @@ char **user_console(void)
 		if (isatty(STDIN_FILENO))
 			printf("($) ");
 		input = getline(&buffer, &bufsize, stdin);
+		if (input != 0)
+			continue;
 		if (input == EOF)
 		{
 			if (isatty(STDIN_FILENO) != 0)
