@@ -5,7 +5,7 @@
  * Return: array of tokens
  */
 
-char **user_console(char ** envp)
+char **user_console(char **envp)
 {
 	size_t bufsize = 32;
 	int i = 0, input = 0, status;

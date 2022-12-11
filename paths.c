@@ -9,7 +9,7 @@ char *pathfinder(char *command)
 
 
 {
-	char *current_path;
+	char *current_path, *fullpath;
 	char *path_tok;
 	size_t arglen = strlen(command);
 
@@ -20,11 +20,10 @@ char *pathfinder(char *command)
 
 	current_path = getenv("PATH");
 	path_tok = strtok(current_path, ":");
-	while(path_tok)
+	while (path_tok)
 	{
-		char *fullpath = malloc(arglen + strlen(path_tok) + 2);
+		fullpath = malloc(arglen + strlen(path_tok) + 2);
 		sprintf(fullpath, "%s/%s", path_tok, command);
-		//printf("%s\n", fullpath);
 		if (access(fullpath, F_OK) == 0)
 		{
 			return (fullpath);
