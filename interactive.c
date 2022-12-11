@@ -5,12 +5,13 @@
  * Return: array of tokens
  */
 
-char **user_console(void)
+char **user_console(char ** envp)
 {
 	size_t bufsize = 32;
 	int i = 0, input = 0, status;
 	char *tok = NULL, *buffer = NULL;
 	pid_t childcheck = 1;
+
 
 	while (1)
 	{
@@ -40,16 +41,21 @@ char **user_console(void)
 			split[i++] = tok;
 		}
 		split[i - 1] = NULL;
-		childcheck = fork();
-		if (childcheck == 0)
+		char *temp = split[0];
+		split[0] = pathfinder(temp);
+		if (split[0] != NULL)
 		{
-			execve(split[0], split, NULL);
-			printf("./shell: No such file or directory\n");
-			free(tok);
-			free(buffer);
-			exit(0);
+			childcheck = fork();
+			if (childcheck == 0)
+			{
+				execve(split[0], split, envp);
+				printf("./shell: No such file or directory\n");
+				free(tok);
+				free(buffer);
+				exit(0);
+			}
+			wait(&status);
 		}
-		wait(&status);
 		free(tok);
 		free(buffer);
 		buffer = NULL;

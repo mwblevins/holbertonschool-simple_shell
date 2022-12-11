@@ -6,14 +6,14 @@
  * Return: 1 if command fails
  */
 
-int main(int argc, char **argv)
+int main(int argc, char **argv, char **envp)
 {
 	int i = 0;
 	char **args = NULL;
 
 	if (argc == 1)
 	{
-		user_console();
+		user_console(envp);
 	}
 	if (argc > 1)
 	{
@@ -24,7 +24,7 @@ int main(int argc, char **argv)
 			i++;
 		}
 
-		execve(args[0], args, NULL);
+		execve(args[0], args, envp);
 		printf("./shell: No such file or directory\n");
 	}
 	return (0);
