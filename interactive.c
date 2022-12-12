@@ -7,58 +7,31 @@
 
 char **user_console(char **envp)
 {
-	size_t bufsize = 32;
-	int i = 0, input = 0, status;
-	char *tok = NULL, *buffer = NULL;
+	int input = 0, status;
+	char **temp = NULL;
 	pid_t childcheck = 1;
 
 
 	while (1)
 	{
-		i = 0;
 		if (isatty(STDIN_FILENO))
 			printf("($) ");
-		input = getline(&buffer, &bufsize, stdin);
-		if (input == EOF)
-		{
-			if (isatty(STDIN_FILENO) != 0)
-				printf("\n");
-			free(buffer);
-			exit(0);
-		}
-		tok = strtok(buffer, " \n");
-		if (tok == NULL)
+		temp = tokenize();
+		if (temp == NULL)
 			continue;
-		if (strcmp(tok, "exit") == 0)
-		{
-			free(buffer);
-			exit(0);
-		}
-		split[i++] = tok;
-		while (tok != NULL && i < 32)
-		{
-			tok = strtok(NULL, " \n");
-			split[i++] = tok;
-		}
-		split[i - 1] = NULL;
-		char *temp = split[0];
-		split[0] = pathfinder(temp);
+		temp = pathfinder(split[0]);
 		if (split[0] != NULL)
 		{
 			childcheck = fork();
 			if (childcheck == 0)
 			{
+				printf("string being passed to execve is %s\n", split[0]);
 				execve(split[0], split, envp);
-				printf("./shell: No such file or directory\n");
-				free(tok);
-				free(buffer);
+				printf("./shell: No such file or directory");
 				exit(0);
 			}
 			wait(&status);
 		}
-		free(tok);
-		free(buffer);
-		buffer = NULL;
 	}
 	return (split);
 }

@@ -9,6 +9,7 @@
 #include <string.h>
 #include <sys/stat.h>
 char *split[32];
-char **user_console(char ** envp);
-char *pathfinder(char *command);
+char **tokenize();
+char **user_console(char **envp);
+char **pathfinder(char *command);
 #endif
