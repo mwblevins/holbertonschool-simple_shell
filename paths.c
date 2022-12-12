@@ -10,7 +10,7 @@ char **pathfinder(char *command)
 
 
 {
-	char *current_path, *fullpath, *temp_path;
+	char *current_path, *temp_path;
 	char *path_tok;
 	size_t arglen = strlen(command);
 
@@ -20,6 +20,7 @@ char **pathfinder(char *command)
 		return (split);
 	}
 
+	path_tok = NULL;
 	current_path = getenv("PATH");
 	temp_path = strdup(current_path);
 	path_tok = strtok(temp_path, ":");
@@ -31,12 +32,11 @@ char **pathfinder(char *command)
 		{
 			split[0] = fullpath;
 			free(temp_path);
-			free(fullpath);
 			return (split);
 		}
 		path_tok = strtok(NULL, ":");
 		free(fullpath);
+
 	}
-	printf("./shell: No such file or directory\n");
 	return (NULL);
 }

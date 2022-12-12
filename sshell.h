@@ -8,6 +8,8 @@
 #include <sys/wait.h>
 #include <string.h>
 #include <sys/stat.h>
+char *buffer;
+char *fullpath;
 char *split[32];
 char **tokenize();
 char **user_console(char **envp);

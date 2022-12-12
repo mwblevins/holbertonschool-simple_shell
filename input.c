@@ -7,12 +7,12 @@
 
 char **tokenize()
 {
-	char *tok = NULL, *buffer = NULL;
+	char *tok = NULL;
 	int i, input = 0;
 	size_t bufsize = 32;
 
 	i = 0;
-
+	buffer = NULL;
 	input = getline(&buffer, &bufsize, stdin);
 	if (input == EOF)
 	{
@@ -26,7 +26,6 @@ char **tokenize()
 		return (NULL);
 	if (strcmp(tok, "exit") == 0)
 	{
-		free(tok);
 		free(buffer);
 		exit(0);
 	}
@@ -38,6 +37,5 @@ char **tokenize()
 	}
 	split[i - 1] = NULL;
 
-	free(buffer);
 	return (split);
 }
