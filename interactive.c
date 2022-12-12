@@ -2,6 +2,7 @@
 
 /**
  * user_console - launches user console for input
+ * @envp: environmental variable
  * Return: array of tokens
  */
 
@@ -25,7 +26,6 @@ char **user_console(char **envp)
 			childcheck = fork();
 			if (childcheck == 0)
 			{
-				printf("string being passed to execve is %s\n", split[0]);
 				execve(split[0], split, envp);
 				printf("./shell: No such file or directory");
 				exit(0);

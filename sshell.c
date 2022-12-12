@@ -3,6 +3,7 @@
  * main - Shell, interactive or non interactive
  * @argc: argument count
  * @argv: argument vector
+ * @envp: environmental variable
  * Return: 1 if command fails
  */
 
