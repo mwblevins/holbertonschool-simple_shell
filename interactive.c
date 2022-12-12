@@ -8,7 +8,7 @@
 
 char **user_console(char **envp)
 {
-	int input = 0, status;
+	int status;
 	char **temp = NULL;
 	pid_t childcheck = 1;
 
