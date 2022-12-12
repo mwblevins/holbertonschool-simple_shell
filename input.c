@@ -37,5 +37,7 @@ char **tokenize()
 		split[i++] = tok;
 	}
 	split[i - 1] = NULL;
+
+	free(buffer);
 	return (split);
 }

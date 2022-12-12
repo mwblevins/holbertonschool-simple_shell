@@ -30,6 +30,8 @@ char **pathfinder(char *command)
 		if (access(fullpath, F_OK) == 0)
 		{
 			split[0] = fullpath;
+			free(temp_path);
+			free(fullpath);
 			return (split);
 		}
 		path_tok = strtok(NULL, ":");
