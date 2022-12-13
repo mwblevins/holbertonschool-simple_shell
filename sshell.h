@@ -11,6 +11,8 @@
 char *fullpath;
 char *buffer;
 char *split[32];
+char **env;
+int print_env();
 char **tokenize();
 char **user_console(char **envp);
 char **pathfinder(char *command);

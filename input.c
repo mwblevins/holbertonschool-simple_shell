@@ -29,6 +29,11 @@ char **tokenize()
 		free(buffer);
 		exit(0);
 	}
+	if (strcmp(tok, "env") == 0)
+	{
+		print_env();
+		return (NULL);
+	}
 	split[i++] = tok;
 	while (tok != NULL && i < 32)
 	{
@@ -36,6 +41,5 @@ char **tokenize()
 		split[i++] = tok;
 	}
 	split[i - 1] = NULL;
-
 	return (split);
 }
