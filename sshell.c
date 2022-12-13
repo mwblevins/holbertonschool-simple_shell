@@ -28,5 +28,6 @@ int main(int argc, char **argv, char **envp)
 		execve(args[0], args, envp);
 		printf("./shell: No such file or directory\n");
 	}
+	free(args);
 	return (0);
 }

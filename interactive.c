@@ -21,7 +21,7 @@ char **user_console(char **envp)
 		if (temp == NULL)
 			continue;
 		temp = pathfinder(split[0]);
-		if (split[0] != NULL)
+		if (temp != NULL)
 		{
 			childcheck = fork();
 			if (childcheck == 0)
@@ -32,8 +32,7 @@ char **user_console(char **envp)
 			}
 			wait(&status);
 			free(buffer);
-			if (fullpath)
-				free(fullpath);
+			free(fullpath);
 		}
 	}
 	return (split);

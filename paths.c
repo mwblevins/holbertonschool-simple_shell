@@ -14,6 +14,7 @@ char **pathfinder(char *command)
 	char *path_tok;
 	size_t arglen = strlen(command);
 
+	fullpath = NULL;
 	if (strchr(command, '/') != NULL && access(command, F_OK) == 0)
 	{
 		split[0] = command;
@@ -38,5 +39,6 @@ char **pathfinder(char *command)
 		free(fullpath);
 
 	}
+	free(temp_path);
 	return (NULL);
 }
